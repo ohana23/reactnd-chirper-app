@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import authedUser from './authedUser';
 import users from './users';
 import tweets from './tweets';
+import { loadingBarReducer } from 'react-redux-loading';
 
 // The authedUser, users, and tweets reducer will all be combined in one main root reducer.
 // It'll combine each reducer's results into a single state object.
@@ -9,5 +10,6 @@ import tweets from './tweets';
 export default combineReducers({
     authedUser,
     users,
-    tweets
+    tweets,
+    loadingBar: loadingBarReducer
 });
