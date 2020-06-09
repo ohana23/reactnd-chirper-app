@@ -1,4 +1,4 @@
-import { RECEIVE_TWEETS } from '../actions/tweets';
+import { RECEIVE_TWEETS, TOGGLE_TWEET } from '../actions/tweets';
 
 // This is the tweets reducer. It manages the tweets slice of the state.
 // This reducer will manage just its own part of the state.
@@ -10,6 +10,16 @@ export default function tweets(state = {}, action) {
                 ...state,
                 ...action.tweets
             };
+        case TOGGLE_TWEET:
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    likes: action.hasLiked === true
+                        ? state[action.id].likes.filter((uid) => uid !== action.authedUser)
+                        : state[action.id].likes.concat([action.authedUser])
+                }
+            }
         default:
             return state;
     }
