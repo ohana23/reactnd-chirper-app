@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { handleAddTweet } from '../actions/tweets';
 
 // this is going to be a controlled component meaning react is going to be 
 // in control of the component text
@@ -15,20 +17,19 @@ class NewTweet extends Component {
         const text = e.target.value;
 
         this.setState(() => ({
-            text // by the way, this is shorthand for text: text
+            text // by the way, this is shorthand for "text: text"
         }));
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
 
-        // todo: add tweet to the store
-
         const { text } = this.state;
+        const { dispatch, id } = this.props;
 
-        console.log("New tweet: ", text);
+        dispatch(handleAddTweet(text, id));
 
-        // reset the text field to empty
+        // reset the text field to be empty
         this.setState(() => ({
             text: ''
         }));
@@ -70,4 +71,4 @@ class NewTweet extends Component {
     }
 }
 
-export default NewTweet;
+export default connect()(NewTweet);
